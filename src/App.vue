@@ -1,30 +1,81 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="cabecalho">
+    <router-link to="/">
+      <img src="@/assets/Vector.svg" class="logo">
+    </router-link>
+    <div class="escritaCabecalho">
+      <router-link to="/products" class="link">
+        New Arrival
+      </router-link>
+      <router-link to="/products" class="link">
+        Man
+      </router-link>
+      <router-link to="/products" class="link">
+        Woman
+      </router-link>
+      <router-link to="/products" class="link">
+        Brands
+      </router-link>
+    </div>
+    <div class="barraPesquisa">
+      <span class="material-icons lupa">
+        search
+      </span> <input type="search" placeholder="Search" class="input">
+    </div>
+    <img src="@/assets/menu.svg" class="menu">
+  </div>
+  <router-view />
 </template>
-
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+body {
+  margin: 0;
 }
 
-nav {
-  padding: 30px;
+.cabecalho {
+  background-color: #CD081D;
+  height: 8vh;
+  display: flex;
+  align-items: center;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.logo {
+  width: 2vw;
+  margin-left: 2vw;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+.escritaCabecalho {
+  color: white;
+  display: flex;
+  gap: 3vw;
+  cursor: pointer;
+  margin-left: 30vw;
+}
+
+.link {
+  text-decoration: none;
+  color: white;
+}
+
+.barraPesquisa {
+  margin-left: 20vw;
+  display: flex;
+  background-color: white;
+  padding: 0.5vh 1vh;
+}
+
+.menu {
+  width: 2vw;
+  margin-left: 3vw;
+}
+
+.input {
+  border: none;
+  outline: none;
+}
+
+.lupa {
+  color: #A69F9F;
+  font-size: 3.5vh;
 }
 </style>
+
