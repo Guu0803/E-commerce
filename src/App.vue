@@ -5,22 +5,22 @@
     </router-link>
     <div class="escritaCabecalho">
       <router-link to="/products" class="link">
-        New Arrival
+        Lançamentos
       </router-link>
       <router-link to="/products" class="link">
-        Man
+        Masculino
       </router-link>
       <router-link to="/products" class="link">
-        Woman
+        Feminino
       </router-link>
       <router-link to="/products" class="link">
-        Brands
+        Marcas
       </router-link>
     </div>
     <div class="barraPesquisa">
       <span class="material-icons lupa">
         search
-      </span> <input type="search" placeholder="Search" class="input">
+      </span> <input type="search" placeholder="Pesquisa" class="input">
     </div>
     <img src="@/assets/menu.svg" class="menu">
   </div>
@@ -36,6 +36,7 @@ body {
   height: 8vh;
   display: flex;
   align-items: center;
+  width: 100vw;
 }
 
 .logo {
@@ -57,7 +58,7 @@ body {
 }
 
 .barraPesquisa {
-  margin-left: 20vw;
+  margin-left: 16vw;
   display: flex;
   background-color: white;
   padding: 0.5vh 1vh;
@@ -65,7 +66,7 @@ body {
 
 .menu {
   width: 2vw;
-  margin-left: 3vw;
+  margin-left: 2vw;
 }
 
 .input {
