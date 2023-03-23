@@ -17,18 +17,21 @@
         Marcas
       </router-link>
     </div>
-    <div class="barraPesquisa">
+    <div style="display: flex;">
+      <div class="barraPesquisa">
       <span class="material-icons lupa">
         search
       </span> <input type="search" placeholder="Pesquisa" class="input">
     </div>
     <img src="@/assets/menu.svg" class="menu">
+    </div>
   </div>
   <router-view />
 </template>
 <style>
 body {
   margin: 0;
+  font-family: 'Inter';
 }
 
 .cabecalho {
@@ -36,12 +39,13 @@ body {
   height: 8vh;
   display: flex;
   align-items: center;
-  width: 100vw;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .logo {
   width: 2vw;
-  margin-left: 2vw;
+  padding: 0 2vw;
 }
 
 .escritaCabecalho {
@@ -49,7 +53,7 @@ body {
   display: flex;
   gap: 3vw;
   cursor: pointer;
-  margin-left: 30vw;
+  font-size: 1.5vw;
 }
 
 .link {
@@ -58,7 +62,7 @@ body {
 }
 
 .barraPesquisa {
-  margin-left: 16vw;
+  
   display: flex;
   background-color: white;
   padding: 0.5vh 1vh;
@@ -66,7 +70,7 @@ body {
 
 .menu {
   width: 2vw;
-  margin-left: 2vw;
+  padding: 0 2vw;
 }
 
 .input {
