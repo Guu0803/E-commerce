@@ -1,9 +1,12 @@
 <template>
     <div class="card-conteiner">
         <div class="card">
-            <img src="@/assets/Rectangle11.svg" class="imgagem-card">
+            <img :src="imagem" class="imgagem-card">
             <div class="nome-produto">
-                Tenis vermelho
+               {{textTitulo}}
+            </div>
+            <div class="preco">
+                {{textPreco}}
             </div>
         </div>
         <div class="botao">
@@ -12,8 +15,10 @@
     </div>
 </template>
 <script>
+
 export default {
-    name: "productCard"
+    name: "productCard",
+    props: ["textTitulo", "textPreco","imagem"]
 }
 
 </script> 
@@ -21,15 +26,16 @@ export default {
 .card-conteiner {
     display: flex;
     flex-direction: column;
-    width: 23vw;
+    width: 100%;
     margin: 0 1vw;
     align-items: center;
-
-
 }
 .card {
     border-radius: 10px;
     box-shadow: 1vh 1vh 1vh lightgray;
+    background-color: #CA021C;
+    color: white;
+    text-align: center;
 }
 
 .imgagem-card {
@@ -37,12 +43,12 @@ export default {
 }
 
 .nome-produto {
-    background-color: #CA021C;
     margin-top: -1.5vh;
     border-radius: 0px 0px 10px 10px;
-    color: white;
-    text-align: center;
-    padding: 1vh 0 2vh 0;
+    padding: 1vh 0 1vh 0;
+}
+.preco {
+    padding-bottom: 2vh;
 }
 
 .botao {
