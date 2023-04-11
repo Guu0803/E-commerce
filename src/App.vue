@@ -13,7 +13,6 @@
       <router-link to="/produtos/feminino/" class="link">
         Feminino
       </router-link>
-    
     </div>
     <div style="display: flex;">
       <div class="barraPesquisa">
@@ -24,7 +23,9 @@
       <img src="@/assets/menu.svg" class="menu">
     </div>
   </div>
+
   <router-view />
+  
   <div class="rodape">
     <div class="contatos">
       <div>

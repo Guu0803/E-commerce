@@ -22,7 +22,7 @@ export default {
 }
 
 </script> 
-<style>
+<style scoped>
 .card-conteiner {
     display: flex;
     flex-direction: column;
@@ -31,7 +31,7 @@ export default {
     align-items: center;
 }
 .card {
-    border-radius: 10px;
+    border-radius: 17px;
     box-shadow: 1vh 1vh 1vh lightgray;
     background-color: #CA021C;
     color: white;
