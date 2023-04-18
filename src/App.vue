@@ -13,6 +13,9 @@
       <router-link to="/produtos/feminino/" class="link">
         Feminino
       </router-link>
+      <router-link to="/carrinho" class="link">
+        Meu carrinho
+      </router-link>
     </div>
     <div style="display: flex;">
       <div class="barraPesquisa">
@@ -25,7 +28,7 @@
   </div>
 
   <router-view />
-  
+
   <div class="rodape">
     <div class="contatos">
       <div>
@@ -41,12 +44,12 @@
         Loja
       </div>
     </div>
-    <div >
+    <div>
       <div class="parceiros">
         Parceiros
       </div>
       <div class="conteiner-parceiros">
-        <img src="@/assets/Rectangle17.svg" class="imagem-parceiros"> 
+        <img src="@/assets/Rectangle17.svg" class="imagem-parceiros">
         <img src="@/assets/image3.svg" class="imagem-parceiros2">
       </div>
     </div>
@@ -59,7 +62,7 @@
       </button>
       <div class="rede-social">
         <img src="@/assets/akar-icons_instagram-fill.svg" class="logo-rede-social">
-        <img src="@/assets/akar-icons_facebook-fill.svg" class="logo-rede-social"> 
+        <img src="@/assets/akar-icons_facebook-fill.svg" class="logo-rede-social">
         <img src="@/assets/akar-icons_twitter-fill.svg" class="logo-rede-social">
 
       </div>
@@ -138,24 +141,29 @@ body {
   font-size: 3vh;
   cursor: pointer;
 }
+
 .parceiros {
   font-style: normal;
   font-weight: 500;
   font-size: 3vh;
   text-align: center;
 }
+
 .conteiner-parceiros {
   display: flex;
   align-items: center;
 }
+
 .imagem-parceiros {
   height: 10vh;
   cursor: pointer;
 }
+
 .imagem-parceiros2 {
   height: 18vh;
   cursor: pointer;
 }
+
 .email {
   display: flex;
   flex-direction: column;
@@ -164,6 +172,7 @@ body {
   font-weight: 500;
   font-size: 3vh;
 }
+
 .input-email {
   border-radius: 8px;
   border: none;
@@ -172,21 +181,23 @@ body {
   font-weight: 500;
   font-size: 3vh;
 }
+
 .botao-inscrever {
-  border-radius:8px;
+  border-radius: 8px;
   padding: 1.5vh;
   font-style: normal;
   font-weight: 500;
   font-size: 3vh;
 }
+
 .rede-social {
   display: flex;
   justify-content: center;
   gap: 2vw;
 }
+
 .logo-rede-social {
   height: 4vh;
   cursor: pointer;
-}
-</style>
+}</style>
 
