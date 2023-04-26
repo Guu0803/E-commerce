@@ -1,5 +1,5 @@
 <template>
-  <div class="cabecalho">
+  <div class="cabecalho" v-on:click="fechar()">
     <router-link to="/">
       <img src="@/assets/Vector.svg" class="logo">
     </router-link>
@@ -13,9 +13,6 @@
       <router-link to="/produtos/feminino/" class="link">
         Feminino
       </router-link>
-      <router-link to="/carrinho" class="link">
-        Meu carrinho
-      </router-link>
     </div>
     <div style="display: flex;">
       <div class="barraPesquisa">
@@ -23,11 +20,35 @@
           search
         </span> <input type="search" placeholder="Pesquisa" class="input">
       </div>
-      <img src="@/assets/menu.svg" class="menu">
+    </div>
+    <div class="cojunto-usuario" v-on:click.stop>
+      <div class="menu-usuario" v-on:click="criar ()">
+        <span class="material-icons icones-menu">
+          person
+        </span>
+        Criar Conta
+      </div>
+      <div class="menu-usuario" v-on:click="loginMetodo ()">
+        <span class="material-icons icones-menu">
+          login
+        </span>
+        Login
+      </div>
+      <div class="menu-usuario">
+        <span class="material-icons icones-menu">
+          shopping_cart
+        </span>
+        <router-link to="/carrinho" class="link">
+          Carrinho
+        </router-link>
+        
+      </div>
     </div>
   </div>
+  <conta v-if="criarConta == true" />
+  <login  v-if="loginVariavel == true"/>
 
-  <router-view />
+  <router-view v-on:click="fechar()"/>
 
   <div class="rodape">
     <div class="contatos">
@@ -70,6 +91,48 @@
 
   </div>
 </template>
+<script>
+import conta from '@/components/CardConta.vue'
+import login from '@/components/CardLogin.vue'
+export default {
+  components: {
+    conta,
+    login
+  },
+  data (){
+    return {
+      criarConta: false,
+      loginVariavel: false,
+      
+    }
+  },
+  methods: {
+    criar ()  {
+      if (this.loginVariavel == true){
+        this.loginVariavel = false 
+        this.criarConta = true
+      } else {
+        this.criarConta = true
+      }
+      
+    },
+    fechar () {
+      this.criarConta = false
+      this.loginVariavel = false
+    },
+    loginMetodo () { 
+      if (this.criarConta == true) {
+        this.criarConta = false
+        this.loginVariavel = true
+      } else {
+        this.loginVariavel = true
+      }
+    }
+  }
+}
+
+
+</script>
 <style>
 body {
   margin: 0;
@@ -96,6 +159,23 @@ body {
   gap: 3vw;
   cursor: pointer;
   font-size: 1.5vw;
+
+}
+
+.menu-usuario {
+  font-size: 2vh;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.cojunto-usuario {
+  display: flex;
+  gap: 1vw;
+  color: white;
+  margin: 1vw;
+  
+
 }
 
 .link {
@@ -199,5 +279,6 @@ body {
 .logo-rede-social {
   height: 4vh;
   cursor: pointer;
-}</style>
+}
+</style>
 
