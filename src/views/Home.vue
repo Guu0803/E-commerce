@@ -3,6 +3,7 @@
         <img src="@/assets/banner.svg" class="banner">
         <div class="conteinerOferta">
             <div class="oferta">
+                
                 <div class="cash-back">
                     Ganhe 20% de cash back
                 </div>
@@ -30,16 +31,16 @@
             Lançamentos
         </div>
         <div class="fileira-lancamentos">
-            <ProductCard :imagem="require('@/assets/Rectangle11.svg')" textPreco="R$500,00" textTitulo="Tênis Nike"/>
-            <ProductCard :imagem="require('@/assets/oldSchool.svg')" textPreco="R$150,00" textTitulo="Tênis Old School"/>
-            <ProductCard :imagem="require('@/assets/estranho.png')" textPreco="R$300,00" textTitulo="Tênis estranho"/>
-            <ProductCard :imagem="require('@/assets/nike.png')" textPreco="R$750,00" textTitulo="Tênis Nike"/>
-        </div>
+            <ProductCard  :carrinhoAdd="addContador" :imagem="require('@/assets/Rectangle11.svg')" textPreco="R$500,00" textTitulo="Tênis Nike" preco="500"/>
+            <ProductCard  :carrinhoAdd="addContador" :imagem="require('@/assets/oldSchool.svg')" textPreco="R$150,00" textTitulo="Tênis Old School" preco="150"/>
+            <ProductCard  :carrinhoAdd="addContador" :imagem="require('@/assets/estranho.png')" textPreco="R$300,00" textTitulo="Tênis estranho" preco="300"/>
+            <ProductCard  :carrinhoAdd="addContador" :imagem="require('@/assets/nike.png')" textPreco="R$750,00" textTitulo="Tênis Nike" preco="750"/>
+        </div> 
         <div class="fileira-lancamentos">
-            <ProductCard :imagem= "require ('@/assets/new-balance.png')" textPreco="R$200,00" textTitulo="New Balance"  />
-            <ProductCard :imagem= "require ('@/assets/all-star.svg')" textPreco="R$520,00" textTitulo="All Star" />
-            <ProductCard :imagem= "require ('@/assets/sapato.png')"  textPreco="R$800,00"  textTitulo="Sapato Social Democrata" />
-            <ProductCard :imagem= "require ('@/assets/vans.svg')"   textPreco="R$450,00" textTitulo="Vans"/>
+            <ProductCard  :carrinhoAdd="addContador" :imagem= "require ('@/assets/new-balance.png')" textPreco="R$200,00" textTitulo="New Balance" preco="200"  />
+            <ProductCard  :carrinhoAdd="addContador" :imagem= "require ('@/assets/all-star.svg')" textPreco="R$520,00" textTitulo="All Star" preco="520" />
+            <ProductCard  :carrinhoAdd="addContador" :imagem= "require ('@/assets/sapato.png')"  textPreco="R$800,00"  textTitulo="Sapato Social Democrata" preco="800" />
+            <ProductCard  :carrinhoAdd="addContador" :imagem= "require ('@/assets/vans.svg')"   textPreco="R$450,00" textTitulo="Vans" preco="450"/>
         </div>
         <div class="conteinerOferta2">
             <div class="oferta">
@@ -70,20 +71,37 @@
             Em alta
         </div>
         <div class="fileira-lancamentos">
-            <ProductCard :imagem="require('@/assets/Rectangle11.svg')" textPreco="R$500,00" textTitulo="Tênis Nike"/>
-            <ProductCard :imagem="require('@/assets/oldSchool.svg')" textPreco="R$150,00" textTitulo="Tênis Old School"/>
-            <ProductCard :imagem="require('@/assets/estranho.png')" textPreco="R$300,00" textTitulo="Tênis estranho"/>
-            <ProductCard :imagem="require('@/assets/nike.png')" textPreco="R$750,00" textTitulo="Tênis Nike"/>
+            <ProductCard :carrinhoAdd="addContador" :imagem="require('@/assets/Rectangle11.svg')" textPreco="R$500,00" textTitulo="Tênis Nike" preco="500"/>
+            <ProductCard :carrinhoAdd="addContador" :imagem="require('@/assets/oldSchool.svg')" textPreco="R$150,00" textTitulo="Tênis Old School" preco="150"/>
+            <ProductCard :carrinhoAdd="addContador" :imagem="require('@/assets/estranho.png')" textPreco="R$300,00" textTitulo="Tênis estranho" preco="300"/>
+            <ProductCard :carrinhoAdd="addContador" :imagem="require('@/assets/nike.png')" textPreco="R$750,00" textTitulo="Tênis Nike" preco="750"/>
         </div>
+        <RouterLink to="/carrinho">
+            <Carrinho :contadorCarrinho="contador"/>
+        </RouterLink>
+        
     </div>
 </template>
 <script>
-
+import Carrinho from '@/components/Carrinho.vue'
 import ProductCard from '@/components/ProductCard.vue';
+import { RouterLink } from 'vue-router';
 export default {
     name: "Home-page",
     components: {
-        ProductCard
+    ProductCard,
+    Carrinho,
+    RouterLink
+},
+    data() {
+        return {
+            contador: 0
+        }
+    },
+    methods: {
+        addContador () {
+            this.contador++
+        }
     }
 }
 </script>

@@ -9,8 +9,8 @@
                 {{textPreco}}
             </div>
         </div>
-        <div class="botao">
-            Visualizar
+        <div class="botao" v-on:click="salvarItem ()" >
+            Comprar
         </div>
     </div>
 </template>
@@ -18,9 +18,34 @@
 
 export default {
     name: "productCard",
-    props: ["textTitulo", "textPreco","imagem"]
+    props: ["textTitulo", "textPreco","imagem", "carrinhoAdd", "preco"],
+    data () {
+        return {
+            item:{
+                titulo: this.textTitulo,
+                preco: this.textPreco,
+                imagem: this.imagem,
+                unidade: 1,
+                precoTotal: this.preco,
+                precoUnitario: this.preco
+            },
+            listaItensSalvos: []
+        }
+    },
+    methods: {
+        salvarItem () {
+            let itensSalvos = localStorage.getItem("item")
+            itensSalvos = JSON.parse(itensSalvos)
+            if (itensSalvos) {
+                this.listaItensSalvos = itensSalvos
+            }
+            this.listaItensSalvos.push(this.item)
+            localStorage.setItem("item", JSON.stringify(this.listaItensSalvos))
+            this.carrinhoAdd()
+        }
+    }
+    
 }
-
 </script> 
 <style scoped>
 .card-conteiner {

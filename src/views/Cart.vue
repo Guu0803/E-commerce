@@ -6,68 +6,48 @@
         <div class="divisao-carrinho">
             <div>
                 <div class="faixa-vermelha">
-                    <div>
+                    <div class="subtitulosProd">
                         Produtos
                     </div>
-                    <div>
+                    <div class="subtitulosQtda">
                         Quantidade
                     </div>
-                    <div>
+                    <div class="subtitulosTotal">
                         Total
                     </div>
                 </div>
                 <div class="conteiner-carrinho">
-                    <div class="card">
+
+                    <div v-for="item in listaItens" :key="item.titulo" class="card">
 
                         <div class="conteudo-card">
-                            <img src="@/assets/Rectangle11.svg" class="img-card">
-                            Tênis Nike <br> <br>
-                            Vermelho - 10 <br> <br>
-                            R$ 500,00
+                            <img :src="item.imagem" class="img-card">
+                            {{ item.titulo }}<br> <br>
+                            {{ item.preco }}
                         </div>
+
                         <div class="input-dinamico">
-                            <div class="botao" v-on:click="subtracao('subtracao 1')">
+                            <div class="botao" v-on:click="subtracao(item)">
                                 -
                             </div>
                             <div class="numero-input">
-                                {{ unidade1 }}
+                                {{ item.unidade }}
                             </div>
-                            <div class="botao" v-on:click="adicao('adicao 1')">
+                            <div class="botao" v-on:click="adicao(item)">
                                 +
                             </div>
                         </div>
                         <div>
-                            R$ 500,00
+                            R$ {{ parseFloat(item.precoTotal).toFixed(2) }}
+                        </div>
+                        <div class="lixeira">
+                            <span class="material-icons delete" v-on:click="apagar(item)">
+                                delete
+                            </span>
                         </div>
                     </div>
-                    <div class="separacao-card">
-
-                    </div>
-                    <div class="card">
-
-                        <div class="conteudo-card">
-                            <img src="@/assets/sapato.png" class="img-card">
-                            Sapato Social <br> <br>
-                            Marron - 29 <br> <br>
-                            R$ 500,00
-                        </div>
 
 
-                        <div class="input-dinamico">
-                            <div class="botao" v-on:click="subtracao('subtracao 2')">
-                                -
-                            </div>
-                            <div class="numero-input">
-                                {{ unidade2 }}
-                            </div>
-                            <div class="botao" v-on:click="adicao('adicao 2')">
-                                +
-                            </div>
-                        </div>
-                        <div>
-                            R$ 500,00
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -78,8 +58,8 @@
                         Frete
                     </div>
                     <div>
-                        R$1000,00 <br>
-                        R$ 0,00
+                        R$ {{ pegarSubTotal() }} <br>
+                        R$ {{ frete }}
                     </div>
                 </div>
                 <div class="separacao">
@@ -89,7 +69,7 @@
                         Total
                     </div>
                     <div>
-                        R$1000,00
+                        R$ {{ total() }}
                     </div>
                 </div>
                 <div class="pagamento">
@@ -159,25 +139,68 @@ export default {
         return {
             unidade1: 1,
             unidade2: 1,
+            listaItens: [],
+            frete: 25,
         }
     },
     methods: {
-        adicao(option) {
-            if (option == "adicao 1") {
-                this.unidade1++
+        adicao(item) {
+            item.unidade++
+            item.precoTotal = item.unidade * item.precoUnitario
+        },
+        subtracao(item) {
+            if (item.unidade <= 1) {
+                return
             } else {
-                this.unidade2++
+                item.unidade--
+                item.precoTotal = item.unidade * item.precoUnitario
             }
-
 
         },
-        subtracao(option) {
-            if (option == "subtracao 1") {
-                this.unidade1--
-            } else {
-                this.unidade2--
+        pegarSubTotal() {
+            let subTotal = 0
+            for (let index = 0; index < this.listaItens.length; index++) {
+                const element = this.listaItens[index];
+                subTotal = subTotal + parseFloat(element.precoTotal)
             }
+            if (this.listaItens.length == 0) {
+                this.frete = 0
+            } else {
+                if (subTotal >= 700) {
+                    this.frete = 0
+                } else {
+                    this.frete = 25
+                }
+            }
+
+            return subTotal
+        },
+        total() {
+            let total = this.pegarSubTotal()
+            let valorTotal = total + this.frete
+            return valorTotal
+        },
+        apagar(item) {
+            console.log(item)
+            for (let index = 0; index < this.listaItens.length; index++) {
+                const element = this.listaItens[index];
+                console.log(element.titulo)
+                if (item.titulo == element.titulo) {
+                    this.listaItens.splice(index, 1)
+                }
+            }
+            localStorage.setItem("item", JSON.stringify(this.listaItens))
+
         }
+
+    },
+    created() {
+        let item = localStorage.getItem("item")
+        item = JSON.parse(item)
+        if (item) {
+            this.listaItens = item
+        }
+
     }
 }
 </script>
@@ -199,7 +222,7 @@ export default {
     font-size: 3vh;
     padding: 2vh 0vh;
     width: 65vw;
-    justify-content: space-around;
+
 }
 
 .conteiner-carrinho {
@@ -221,6 +244,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 3vh;
+    border-bottom: #FFFFFF 1px solid;
 }
 
 .conteudo-card {
@@ -247,10 +271,6 @@ export default {
 
 }
 
-.separacao-card {
-    border-bottom: #FFFFFF 1px solid;
-    width: 100%;
-}
 
 .resumo-compra {
     background-color: #410E0E;
@@ -301,6 +321,7 @@ export default {
     display: flex;
     margin-bottom: 3vh;
 }
+
 .conteiner-oferta {
     background-color: #DCF7FB;
     display: flex;
@@ -312,6 +333,7 @@ export default {
     font-style: normal;
     padding: 0 3vw;
 }
+
 button {
     background-color: #CB031D;
     font-size: 1vw;
@@ -321,21 +343,41 @@ button {
     cursor: pointer;
     margin-top: 1vw;
 }
+
 .via-oferta {
     display: flex;
     align-items: center;
     gap: 1vw;
 }
+
 .cash-back {
     font-size: 2vw;
     padding-bottom: 1vw;
 }
+
 .tenis-oferta {
     width: 30vw;
     padding-right: 10vw;
 }
+
 .oferta {
     padding: 7vh 10vh;
 }
 
+.lixeira {
+    height: 23vh;
+}
+
+.delete {
+    cursor: pointer;
+}
+
+.subtitulosQtda {
+    width: 25%;
+}
+
+.subtitulosProd {
+    width: 45%;
+    padding-left: 5%;
+}
 </style>

@@ -22,17 +22,23 @@
       </div>
     </div>
     <div class="cojunto-usuario" v-on:click.stop>
-      <div class="menu-usuario" v-on:click="criar ()">
+      <div class="menu-usuario" v-on:click="criar()" v-if="botaoOff == true">
         <span class="material-icons icones-menu">
           person
         </span>
         Criar Conta
       </div>
-      <div class="menu-usuario" v-on:click="loginMetodo ()">
+      <div class="menu-usuario" v-on:click="loginMetodo()" v-if="botaoOff == true">
         <span class="material-icons icones-menu">
           login
         </span>
         Login
+      </div>
+      <div class="menu-usuario" v-if="userOn == true">
+        <span class="material-icons">
+          account_circle
+        </span>
+        {{ email }}
       </div>
       <div class="menu-usuario">
         <span class="material-icons icones-menu">
@@ -41,14 +47,16 @@
         <router-link to="/carrinho" class="link">
           Carrinho
         </router-link>
-        
+        <!-- <div>
+          {{ numeroCarrinho }}
+        </div> -->
       </div>
     </div>
   </div>
   <conta v-if="criarConta == true" />
-  <login  v-if="loginVariavel == true"/>
+  <login v-if="loginVariavel == true" :setLogin="setLogin" />
 
-  <router-view v-on:click="fechar()"/>
+  <router-view v-on:click="fechar()" />
 
   <div class="rodape">
     <div class="contatos">
@@ -99,35 +107,48 @@ export default {
     conta,
     login
   },
-  data (){
+  data() {
     return {
       criarConta: false,
       loginVariavel: false,
-      
+      botaoOff: true,
+      userOn: false,
+      email: "",
+      numeroCarrinho: 0
     }
   },
   methods: {
-    criar ()  {
-      if (this.loginVariavel == true){
-        this.loginVariavel = false 
+    criar() {
+      if (this.loginVariavel == true) {
+        this.loginVariavel = false
         this.criarConta = true
       } else {
         this.criarConta = true
       }
-      
+
     },
-    fechar () {
+    fechar() {
       this.criarConta = false
       this.loginVariavel = false
     },
-    loginMetodo () { 
+    loginMetodo() {
       if (this.criarConta == true) {
         this.criarConta = false
         this.loginVariavel = true
       } else {
         this.loginVariavel = true
       }
+    },
+    setLogin(valor) {
+      this.botaoOff = false
+      this.userOn = true
+      this.email = valor
+    },
+    addCarrinho () {
+      this.numeroCarrinho++
     }
+
+
   }
 }
 
@@ -167,6 +188,7 @@ body {
   display: flex;
   align-items: center;
   cursor: pointer;
+  gap: 1vh;
 }
 
 .cojunto-usuario {
@@ -174,7 +196,7 @@ body {
   gap: 1vw;
   color: white;
   margin: 1vw;
-  
+
 
 }
 

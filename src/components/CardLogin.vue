@@ -2,11 +2,14 @@
     <div class="cartao">
         <div class="quadro-inputs">
             <img src="@/assets/Vector.svg" class="logo">
-            <input type="email" placeholder="E-mail" v-model="email">
-            <input type="password" placeholder="Senha" v-model="senha">
+            <input type="email" placeholder="E-mail" v-model="email" v-if="input == true">
+            <input type="password" placeholder="Senha" v-model="senha" v-if="input == true">
+            <div class="logado" v-if="logado == true">
+                Logado
+            </div>
         </div>
         <div class="conteiner-botao">
-            <button class="criar-conta" v-on:click="login ()">
+            <button class="criar-conta" v-on:click="login ()" v-if="input == true">
                 Entrar
             </button>
         </div>
@@ -16,18 +19,20 @@
 <script>
 export default {
     name:"loginComponent",
+    props:["setLogin"],
     data () {
         return {
             email:"",
             senha:"",
-            usuario: false
+            usuario: false,
+            input: true,
+            logado: false
         }
     },
     methods: {
         login () {
             let listaSalva = localStorage.getItem("listaUsuarios")
             listaSalva = JSON.parse(listaSalva)
-            // console.log(listaSalva)
             if (listaSalva == null) {
                 console.log("Nome ou senha incorretos")
             } else {
@@ -35,15 +40,14 @@ export default {
                     const element = listaSalva[index];
                     if (this.email == element.email && this.senha == element.senha) {
                         this.usuario = true
-                        
                         console.log(this.email)
+                        this.input = false
+                        this.logado = true
+                        this.setLogin (this.email) 
                     }
-                    
-                    
                 }
             }
-        }
-        
+        }   
     }
 }
 </script>
@@ -94,5 +98,14 @@ input {
     align-items: flex-end;
     justify-content: flex-end;
     margin:0 1vw 1vh 0;
+}
+.logado {
+    color: #B80B0B;
+    font-size: 3vh;
+    font-family: 'Inter';
+    width: fit-content;
+    padding: 1vw;
+    background-color:#E2DFDE ;
+    border-radius: 10px;
 }
 </style>
