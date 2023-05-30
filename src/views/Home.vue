@@ -34,7 +34,7 @@
             <ProductCard  :carrinhoAdd="addContador" :imagem="require('@/assets/Rectangle11.svg')" textPreco="R$500,00" textTitulo="Tênis Nike" preco="500"/>
             <ProductCard  :carrinhoAdd="addContador" :imagem="require('@/assets/oldSchool.svg')" textPreco="R$150,00" textTitulo="Tênis Old School" preco="150"/>
             <ProductCard  :carrinhoAdd="addContador" :imagem="require('@/assets/estranho.png')" textPreco="R$300,00" textTitulo="Tênis estranho" preco="300"/>
-            <ProductCard  :carrinhoAdd="addContador" :imagem="require('@/assets/nike.png')" textPreco="R$750,00" textTitulo="Tênis Nike" preco="750"/>
+            <ProductCard  :carrinhoAdd="addContador" :imagem="require('@/assets/nike.png')" textPreco="R$750,00" textTitulo="Tênis Nike Laranja" preco="750"/>
         </div> 
         <div class="fileira-lancamentos">
             <ProductCard  :carrinhoAdd="addContador" :imagem= "require ('@/assets/new-balance.png')" textPreco="R$200,00" textTitulo="New Balance" preco="200"  />
@@ -74,7 +74,7 @@
             <ProductCard :carrinhoAdd="addContador" :imagem="require('@/assets/Rectangle11.svg')" textPreco="R$500,00" textTitulo="Tênis Nike" preco="500"/>
             <ProductCard :carrinhoAdd="addContador" :imagem="require('@/assets/oldSchool.svg')" textPreco="R$150,00" textTitulo="Tênis Old School" preco="150"/>
             <ProductCard :carrinhoAdd="addContador" :imagem="require('@/assets/estranho.png')" textPreco="R$300,00" textTitulo="Tênis estranho" preco="300"/>
-            <ProductCard :carrinhoAdd="addContador" :imagem="require('@/assets/nike.png')" textPreco="R$750,00" textTitulo="Tênis Nike" preco="750"/>
+            <ProductCard :carrinhoAdd="addContador" :imagem="require('@/assets/nike.png')" textPreco="R$750,00" textTitulo="Tênis Nike Laranja" preco="750"/>
         </div>
         <RouterLink to="/carrinho">
             <Carrinho :contadorCarrinho="contador"/>
@@ -101,6 +101,15 @@ export default {
     methods: {
         addContador () {
             this.contador++
+        }
+    },
+    created () {
+        let contadorAtt = localStorage.getItem("item")
+        contadorAtt = JSON.parse(contadorAtt)
+        if (contadorAtt) {
+            this.contador = contadorAtt.length
+        } else {
+            this.contador = 0
         }
     }
 }

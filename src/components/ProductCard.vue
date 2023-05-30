@@ -3,48 +3,63 @@
         <div class="card">
             <img :src="imagem" class="imgagem-card">
             <div class="nome-produto">
-               {{textTitulo}}
+                {{ textTitulo }}
             </div>
             <div class="preco">
-                {{textPreco}}
+                {{ textPreco }}
             </div>
         </div>
-        <div class="botao" v-on:click="salvarItem ()" >
+        <div class="botao" v-on:click="salvarItem()">
             Comprar
         </div>
     </div>
 </template>
 <script>
-
 export default {
     name: "productCard",
-    props: ["textTitulo", "textPreco","imagem", "carrinhoAdd", "preco"],
-    data () {
+    props: ["textTitulo", "textPreco", "imagem", "carrinhoAdd", "preco", "att"],
+    data() {
         return {
-            item:{
+            item: {
                 titulo: this.textTitulo,
                 preco: this.textPreco,
                 imagem: this.imagem,
                 unidade: 1,
                 precoTotal: this.preco,
-                precoUnitario: this.preco
+                precoUnitario: this.preco,
             },
-            listaItensSalvos: []
+            listaItensSalvos: [],
+            tenisRepetido: false
         }
     },
     methods: {
-        salvarItem () {
+        salvarItem() {
+            this.tenisRepetido = false
             let itensSalvos = localStorage.getItem("item")
             itensSalvos = JSON.parse(itensSalvos)
             if (itensSalvos) {
                 this.listaItensSalvos = itensSalvos
             }
-            this.listaItensSalvos.push(this.item)
-            localStorage.setItem("item", JSON.stringify(this.listaItensSalvos))
-            this.carrinhoAdd()
+            for (let index = 0; index < this.listaItensSalvos.length; index++) {
+                const element = this.listaItensSalvos[index];
+                if (element.titulo == this.item.titulo) {
+                    element.unidade++
+                    localStorage.setItem("item", JSON.stringify(this.listaItensSalvos))
+                    this.tenisRepetido = true 
+                } 
+            }
+            if (this.tenisRepetido == false) {
+                this.listaItensSalvos.push(this.item)
+                localStorage.setItem("item", JSON.stringify(this.listaItensSalvos))
+                 if (this.carrinhoAdd) {
+                    this.carrinhoAdd()
+                 }
+            }
+            if (this.att) {
+                this.att()
+            }
         }
     }
-    
 }
 </script> 
 <style scoped>
@@ -62,11 +77,9 @@ export default {
     color: white;
     text-align: center;
 }
-
 .imgagem-card {
     width: 100%;
 }
-
 .nome-produto {
     margin-top: -1.5vh;
     border-radius: 0px 0px 10px 10px;
@@ -75,7 +88,6 @@ export default {
 .preco {
     padding-bottom: 2vh;
 }
-
 .botao {
     background-color: #CA021C;
     padding: 1vh 4vw;

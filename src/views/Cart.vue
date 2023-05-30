@@ -46,9 +46,6 @@
                             </span>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
             <div class="resumo-compra">
@@ -95,10 +92,14 @@
             Recemente visto
         </div>
         <div class="fileira-produtos">
-            <ProductCard :imagem="require('@/assets/Rectangle11.svg')" textPreco="R$500,00" textTitulo="Tênis Nike" />
-            <ProductCard :imagem="require('@/assets/oldSchool.svg')" textPreco="R$150,00" textTitulo="Tênis Old School" />
-            <ProductCard :imagem="require('@/assets/estranho.png')" textPreco="R$300,00" textTitulo="Tênis estranho" />
-            <ProductCard :imagem="require('@/assets/nike.png')" textPreco="R$750,00" textTitulo="Tênis Nike" />
+            <ProductCard :att="atualizacao" :imagem="require('@/assets/Rectangle11.svg')" textPreco="R$500,00"
+                textTitulo="Tênis Nike" preco="500" />
+            <ProductCard :att="atualizacao" :imagem="require('@/assets/oldSchool.svg')" textPreco="R$150,00"
+                textTitulo="Tênis Old School" preco="150" />
+            <ProductCard :att="atualizacao" :imagem="require('@/assets/estranho.png')" textPreco="R$300,00"
+                textTitulo="Tênis estranho" preco="300" />
+            <ProductCard :att="atualizacao" :imagem="require('@/assets/nike.png')" textPreco="R$750,00"
+                textTitulo="Tênis Nike Laranja" preco="750" />
         </div>
         <div class="conteiner-oferta">
             <div class="oferta">
@@ -137,8 +138,6 @@ export default {
     },
     data() {
         return {
-            unidade1: 1,
-            unidade2: 1,
             listaItens: [],
             frete: 25,
         }
@@ -156,6 +155,17 @@ export default {
                 item.precoTotal = item.unidade * item.precoUnitario
             }
 
+        },
+        atualizacao() {
+            let item = localStorage.getItem("item")
+            item = JSON.parse(item)
+            if (item) {
+                this.listaItens = item
+            }
+            for (let index = 0; index < this.listaItens.length; index++) {
+                const element = this.listaItens[index];
+                element.precoTotal = element.unidade * element.precoUnitario
+            }
         },
         pegarSubTotal() {
             let subTotal = 0
@@ -181,18 +191,14 @@ export default {
             return valorTotal
         },
         apagar(item) {
-            console.log(item)
             for (let index = 0; index < this.listaItens.length; index++) {
                 const element = this.listaItens[index];
-                console.log(element.titulo)
                 if (item.titulo == element.titulo) {
                     this.listaItens.splice(index, 1)
                 }
             }
             localStorage.setItem("item", JSON.stringify(this.listaItens))
-
         }
-
     },
     created() {
         let item = localStorage.getItem("item")
@@ -200,7 +206,10 @@ export default {
         if (item) {
             this.listaItens = item
         }
-
+        for (let index = 0; index < this.listaItens.length; index++) {
+            const element = this.listaItens[index];
+            element.precoTotal = element.unidade * element.precoUnitario
+        }
     }
 }
 </script>
@@ -379,5 +388,4 @@ button {
 .subtitulosProd {
     width: 45%;
     padding-left: 5%;
-}
-</style>
+}</style>
