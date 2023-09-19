@@ -147,8 +147,6 @@ export default {
     addCarrinho () {
       this.numeroCarrinho++
     }
-
-
   }
 }
 

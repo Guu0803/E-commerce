@@ -93,11 +93,16 @@ input {
     cursor: pointer;
 }
 .conteiner-botao {
-    height: 8vh;
+    height: 7vh;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    margin:0 1vw 1vh 0;
+    align-items: center;
+    justify-content: center;
+    margin:1vh 0;
+}
+.criar-conta:hover {
+    background-color: black;
+    color: white;
+    transition: ease-in-out;
 }
 .logado {
     color: #B80B0B;
